@@ -12,6 +12,7 @@ services:
       - poll-tier
     depends_on:
       - worker
+      - db
 
   redis:
     image: redis:7
@@ -67,6 +68,7 @@ services:
       - result-tier
     depends_on:
       - worker
+      - db
 
 networks:
   poll-tier:
