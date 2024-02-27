@@ -3,6 +3,7 @@ version: '3'
 services:
   poll:
     build: ./poll
+    restart: on-failure
     ports:
       - "5000:80"
     environment:
@@ -14,6 +15,7 @@ services:
 
   redis:
     image: redis:7
+    restart: on-failure
     ports:
       - "6379:6379"
     networks:
@@ -22,6 +24,7 @@ services:
 
   worker:
     build: ./worker
+    restart: on-failure
     environment:
       - REDIS_HOST=redis
       - POSTGRES_HOST=db
@@ -37,6 +40,7 @@ services:
 
   db:
     image: postgres:16
+    restart: on-failure
     volumes:
       - db-data:/var/lib/postgresql/data
       - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
@@ -50,6 +54,7 @@ services:
 
   result:
     build: ./result
+    restart: on-failure
     ports:
       - "5001:80"
     environment:
